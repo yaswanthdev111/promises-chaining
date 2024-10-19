@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+    syntax to read http methods:
+        let data=fetch("url",{
+        method:"method_name",
+        headers:{
+        "contenet-type":"application/json"},
+        body:JSON.stringify({
+        data
+        })
+    EX:let data=fetch("http://localhost:3000/comments",{
+                method:"POST",
+                headers:{
+                    "content-type":"application/json"
+                },
+                body:JSON.stringify({
+                    "name":"Jhon",
+                    "age":21
+                })
+            })
+    })
+    NOTE:1.In POST method,through the body only we can post or insert the data in the format of json by using JSON.stringify().
+         2.In PUT method through the id  value we can update the object properties i.e,path variables
+         3.for deleting also we need pass a path variable.
+    
+         PUT vs POST
+         PUT--the whole data completely replaced by new data.
+         POST--along with whole data we add a new data.
+    
+    JSON server--will provide json format data(dmmy data)
+    npm--node package modules
+        --by using npm we can download packages
+
+    -->
+    <button id="btn">click me</button>
+    <button id="post">Post</button>
+    <button id="put">Put</button>
+    <button id="patch">Patch</button>
+    <button id="del">Delete</button>
+    <script>
+        document.getElementById("btn").addEventListener("click",()=>{
+            let data=fetch("http://localhost:3000/posts")
+            data.then((e)=>e.json()).then((e)=>{console.log(e)
+                let div=document.createElement("div");
+                div.innerHTML=e[0].title;
+                document.body.appendChild(div);
+            });
+        })
+        document.getElementById("post").addEventListener("click",()=>{
+            let data=fetch("http://localhost:3000/comments",{
+                method:"POST",
+                headers:{
+                    "content-type":"application/json"
+                },
+                body:JSON.stringify({
+                    "name":"Jhon",
+                    "age":21
+                })
+            })
+        })
+        document.getElementById("put").addEventListener("click",()=>{
+            let data=fetch("http://localhost:3000/comments/4",{
+                method:"PUT",
+                headers:{
+                    "content-type":"application/json"
+                },
+                body:JSON.stringify({
+                    "name":"Vishnu",
+                    "age":21
+                })
+            })
+        })
+        document.getElementById("patch").addEventListener("click",()=>{
+            let data=fetch("http://localhost:3000/comments/4",{
+                method:"PATCH",
+                headers:{
+                    "content-type":"application/json"
+                },
+                body:JSON.stringify({
+                    "location":"kadapa"
+                })
+            })
+        })
+        document.getElementById("del").addEventListener("click",()=>{
+            let data=fetch("http://localhost:3000/comments/2",{
+                method:"DELETE",
+                headers:{
+                    "content-type":"application/json"
+                }
+            })
+        })
+    </script>
+</body>
+</html>
